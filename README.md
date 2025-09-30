@@ -94,4 +94,5 @@ Nuestra vista App junto con el nuevo componente cambia:
      </div>
 ```
 El resultado final en la web de pokemon es:
-![](result.jpg)
+
+![](result.png)
