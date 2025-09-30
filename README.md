@@ -1,12 +1,97 @@
-# React + Vite
+**Component Search para filtrar un lista de elementos**
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+1. Primeramente vamos a construir un nuevo componente llamado Search
+```
+import React from "react";
 
-Currently, two official plugins are available:
+const Search = () => {
+  // funcionalidad
+  return (
+    // contenido
+    <div></div>;
+  );
+};
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+export default Search;
+```
 
-## Expanding the ESLint configuration
+2. Este componente va a recibir en su parámetro una función que será la encargada de dar el valor de la query mediante la función al padre de este componente para realizar el filtro. Recordemos que los datos los tendrá el componente superior a este y necesitará la query (e.target.value) para filtrar.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+En el Padre \<Search onSearch={handleSearch} /> hace que cuando se ejecute en el hijo onSearch(e.target.value) hace que handleSearch en el padre se ejecute y tenga la query en su argumento: const handleSearch = (query) => {...}
+```
+const Search = ({ onSearch }) => {
+
+  const handleInputChange = (e) => {
+    onSearch(e.target.value);
+  };
+
+  return (
+    <input
+      type="search"
+      placeholder="Buscar..."
+      onChange={handleInputChange}
+    />
+  );
+};
+
+export default Search;
+```
+3. Ahora que ya tenemos este nuevo componente para que el usuario teclee su búsqueda; es hora de llamarlo desde el componente superior (App.jsx):
+
+\<Search onSearch={handleSearch} />
+
+4. Ahora toca definir esta función handleSearch:
+```
+import Search from './components/Search';
+const App = () => {
+ const [pokemons, setPokemons] = useState([]);
+ const [filteredPokemons, setFilteredPokemons] = useState([]);
+   useEffect(() => {
+   fetchPokemons()
+     .then(pokemons => {
+       setPokemons(pokemons);
+       setFilteredPokemons(pokemons);
+     })
+     .catch((err) => {
+       console.log(err.message);
+     });
+ }, []);
+   // función se pasa a Search para recibir query y filtrar
+ const handleSearch = (query) => {
+   if (!query) {
+     setFilteredPokemons(pokemons);
+   } else {
+     setFilteredPokemons(
+       pokemons.filter(pokemon =>
+         pokemon.name.toLowerCase().startsWith(
+           query.toLowerCase())
+       )
+     );
+   }
+ };
+```
+
+Observamos que ahora utilizamos dos variables de estado para almacenar los pokemons. Una con todos los pokemons y otra con los filtrados; que serán estos últimos los que utilizaremos en la vista.
+
+Y la función que le pasamos al componente, que recordamos que recibía la query, se encarga de filtrar. Si no hay query los sacamos todos y si hay los filtramos.
+
+Nuestra vista App junto con el nuevo componente cambia:
+```
+     <div className="row justify-content-center pt-3">
+       <div className="col-3">
+         <Search onSearch={handleSearch} />
+       </div>
+     </div>
+     <div class="row p-3 justify-content-center">
+       {filteredPokemons.map((pokemon) => (
+         <div class="col-md-6 col-lg-4 mb-3">
+           <PokemonCard 
+              key={pokemon.name} 
+              name={pokemon.name} 
+              url={pokemon.url} />
+         </div>
+       ))}
+     </div>
+```
+El resultado final en la web de pokemon es:
+![](result.jpg)
