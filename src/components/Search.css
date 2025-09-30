@@ -1,0 +1,13 @@
+/* Estilos en línea para el input y el icon */
+.boxsearch {
+    width: 100%;
+    font-size: 1.8rem;
+    padding: 8px;
+    border: none;
+}
+
+.icon {
+    font-size: 2rem;
+    color: #888;
+    margin-right: 8px;
+}
