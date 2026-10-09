@@ -21,8 +21,6 @@ En el Padre \<Search onSearch={handleSearch} /> hace que cuando se ejecute en el
 
 `onSearch` es el nombre de la prop que recibe el componente hijo; `query` es el nombre del parámetro con el que `App` recibe el texto enviado.
 
-const handleSearch = (query) => {...}
-
 ```
 const Search = ({ onSearch }) => {
 
@@ -41,7 +39,7 @@ const Search = ({ onSearch }) => {
 
 export default Search;
 ```
-3. Ahora que ya tenemos este nuevo componente para que el usuario teclee su búsqueda; es hora de llamarlo desde el componente superior (App.jsx):
+1. Ahora que ya tenemos este nuevo componente para que el usuario teclee su búsqueda; es hora de llamarlo desde el componente superior (App.jsx):
 
 \<Search onSearch={handleSearch} />
 
