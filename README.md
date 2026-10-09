@@ -17,7 +17,7 @@ export default Search;
 
 2. Este componente va a recibir en su parámetro una función; que será la encargada de dar el valor de la query a la función enviada por el padre de este componente para realizar el filtro. Recordemos que los datos los tendrá el componente superior (App) y necesitará la query (e.target.value) del hijo (Search) para filtrar.
 
-En el Padre \<Search onSearch={handleSearch} /> hace que cuando se ejecute en el hijo onSearch(e.target.value) hace que handleSearch en el padre se ejecute y tenga la query en su argumento:
+En el Padre \<Search onSearch={handleSearch} /> hace que cuando se ejecute en el hijo onSearch(e.target.value) el handleSearch en el padre se ejecute también y tenga la query en su argumento:
 
 `onSearch` es el nombre de la prop que recibe el componente hijo; `query` es el nombre del parámetro con el que `App` recibe el texto enviado.
 

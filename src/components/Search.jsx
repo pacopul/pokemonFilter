@@ -3,9 +3,8 @@ import './Search.css';
 
 const Search = ({ onSearch }) => {
     /* Maneja el cambio en el input 
-    y llama a onSearch que es la función 
-    que recibe el componente como parámetro
-    para pasarle el valor del input (query) */
+    y llama a onSearch que es la función que recibe del padre 
+    como parámetro para pasarle el valor del input a la query del padre */
 
     const handleInputChange = (e) => {
         onSearch(e.target.value);
