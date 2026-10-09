@@ -19,6 +19,8 @@ export default Search;
 
 En el Padre \<Search onSearch={handleSearch} /> hace que cuando se ejecute en el hijo onSearch(e.target.value) hace que handleSearch en el padre se ejecute y tenga la query en su argumento:
 
+`onSearch` es el nombre de la prop que recibe el componente hijo; `query` es el nombre del parámetro con el que `App` recibe el texto enviado.
+
 const handleSearch = (query) => {...}
 
 ```
@@ -99,3 +101,7 @@ Nuestra vista App junto con el nuevo componente cambia:
 El resultado final en la web de pokemon es:
 
 ![](result.png)
+
+## Revisión del código con ESLint
+
+Ejecuta `npm run lint` para analizar el código JavaScript y JSX del proyecto. La configuración ignora `dist` y `docs`, que contienen archivos generados para la publicación, para que ESLint se centre en el código fuente mantenido por el equipo.
